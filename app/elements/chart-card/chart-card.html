@@ -10,6 +10,7 @@
 
       .title-text * {
         margin: 0;
+        font-size: 175%;
       }
       #chart-card {
         min-width: 20%;
@@ -18,6 +19,7 @@
       }
       canvas#chart {
         float: left;
+        padding: 10px 0 0 10px;
       }
       paper-card:hover {
         cursor: pointer;
@@ -35,7 +37,6 @@
   <script>
   (function() {
     'use strict';
-
     Polymer({
         is: 'chart-card',
 
@@ -51,8 +52,9 @@
         },
         loadChart: function() {
           var chart = this.$.chart;
+          var that = this;
           get("?server=" + this.server + "&pixels=" + this.width, function(data) {
-            var myChart = new Chart(chart, {
+            that.myChart = new Chart(chart, {
                 type: 'line',
                 data: {
                     labels: data.labels,
@@ -62,17 +64,22 @@
                         data: data.bw,
                         backgroundColor: '#00BCD4',
                         borderWidth: 0,
-                        yAxisID: "n"
+                        yAxisID: "n",
+                        hidden: datasetStatus[0]
                     },
                     {
-                      label: 'Processor load',
+                      label: 'CPU load',
                       data: data.load,
                       backgroundColor: '#CDDC39',
                       borderWidth: 0,
-                      yAxisID: "l"
+                      yAxisID: "l",
+                      hidden: datasetStatus[1]
                     }]
                 },
                 options: {
+                    legend: {
+                      display: false
+                    },
                     scales: {
                         yAxes: [{
                             ticks: {

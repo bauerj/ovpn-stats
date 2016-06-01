@@ -25,6 +25,27 @@
           font-size: 24px!important;
         }
       }
+
+      paper-toolbar paper-checkbox {
+        padding-left: 25px;
+        --paper-checkbox-checked-color: var(--paper-blue-100);
+        --paper-checkbox-checked-ink-color: var(--paper-blue-100);
+        --paper-checkbox-unchecked-color: var(--paper-blue-500);
+        --paper-checkbox-unchecked-ink-color: var(--paper-blue-500);
+        --paper-checkbox-label-color: var(--paper-blue-100);
+        --paper-checkbox-label-checked-color: var(--paper-blue-500);
+      }
+
+       paper-toolbar #network {
+        --paper-checkbox-unchecked-color: #00BCD4;
+        --paper-checkbox-checked-color: #00BCD4;
+      }
+
+       paper-toolbar #cpu {
+        --paper-checkbox-unchecked-color: #CDDC39;
+        --paper-checkbox-checked-color: #CDDC39;
+        --paper-checkbox-label-color: var(--paper-yellow-100);
+      }
     </style>
   </template>
 </dom-module>

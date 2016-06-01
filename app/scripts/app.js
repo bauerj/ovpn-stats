@@ -20,10 +20,36 @@ function get(query, then, error) {
   }
 }
 
+var datasetStatus = {0: false, 1: true};
+
+function toggleDataset(i, on) {
+  datasetStatus[i] = on;
+  var cards = document.querySelectorAll("chart-card");
+  Array.prototype.forEach.call(cards, function(card) {
+    if (card.myChart) {
+      card.myChart.config.data.datasets[i].hidden = on;
+      card.myChart.render()
+    }
+  });
+  return on;
+}
+
+
 (function(document) {
   'use strict';
+
+
+
   var cards = [];
   window.addEventListener('WebComponentsReady', function(e) {
+    document.querySelector("#cpu").addEventListener("change", function(e) {
+      toggleDataset(1, !e.target.checked);
+    });
+
+    document.querySelector("#network").addEventListener("change", function(e) {
+      toggleDataset(0, !e.target.checked);
+    });
+
     var main = document.querySelector("#main");
     get("?servers", function(response) {
       Array.prototype.forEach.call(response.servers, function(server) {
