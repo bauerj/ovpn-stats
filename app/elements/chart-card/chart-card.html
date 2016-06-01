@@ -1,0 +1,119 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<dom-module id="chart-card">
+  <template>
+    <style include="shared-styles">
+      .title-text span {
+        font-size:8pt;
+      }
+
+      .title-text * {
+        margin: 0;
+      }
+      #chart-card {
+        min-width: 20%;
+        min-height: 250px;
+        margin: 10px;
+      }
+      canvas#chart {
+        float: left;
+      }
+      paper-card:hover {
+        cursor: pointer;
+      }
+    </style>
+
+    <paper-card id="chart-card" animated-shadow="true">
+      <div class="header">
+        <canvas id="chart" width="[[width]]" height="250px"></canvas>
+        <div class="title-text over-image"><b>[[server]]</b><span>.ovpn.to</span></div>
+      </div>
+    </paper-card>
+  </template>
+
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+        is: 'chart-card',
+
+        properties: {
+            server: {
+                type: String,
+                //value: 'NL1'
+            },
+            width: {
+                type: Number,
+                value: (window.innerWidth / 4) - 40
+            }
+        },
+        loadChart: function() {
+          var chart = this.$.chart;
+          get("?server=" + this.server + "&pixels=" + this.width, function(data) {
+            var myChart = new Chart(chart, {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: [
+                    {
+                        label: 'Combined network load (Mbit/s)',
+                        data: data.bw,
+                        backgroundColor: '#00BCD4',
+                        borderWidth: 0,
+                        yAxisID: "n"
+                    },
+                    {
+                      label: 'Processor load',
+                      data: data.load,
+                      backgroundColor: '#CDDC39',
+                      borderWidth: 0,
+                      yAxisID: "l"
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            },
+                            id: "n"
+                        },
+                        {
+                            ticks: {
+                                beginAtZero: true
+                            },
+                            position: "right",
+                            id: "l"
+                        }],
+                        xAxes: [{
+                          type: "time"
+                        }]
+                    },
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    elements: {
+                      point: {
+                        radius: 0,
+                        hitRadius: 10
+                      }
+                    }
+                }
+            });
+          })
+        },
+        attached: function() {
+            var card = this.$["chart-card"];
+            card.addEventListener("mouseover", function(e) {
+                card.elevation = 4;
+            });
+            card.addEventListener("mouseout", function(e) {
+                card.elevation = 1;
+            });
+        }
+    });
+
+})();
+  </script>
+</dom-module>
