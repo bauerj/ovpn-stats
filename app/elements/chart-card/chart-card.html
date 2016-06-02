@@ -83,7 +83,8 @@
                     scales: {
                         yAxes: [{
                             ticks: {
-                                beginAtZero: true
+                                beginAtZero: true,
+                                max: 500
                             },
                             id: "n"
                         },
@@ -96,7 +97,7 @@
                         }],
                         xAxes: [{
                           type: "time",
-                          time: {tooltipFormat: "MMMM Do YYYY, hh:mm:ss"}
+                          time: {tooltipFormat: "MMMM Do YYYY, HH:mm:ss"}
                         }]
                     },
                     responsive: false,
