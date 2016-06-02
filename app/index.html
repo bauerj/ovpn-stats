@@ -68,14 +68,19 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
   <!-- endbuild -->
 
   <template is="dom-bind" id="app">
-    <paper-toolbar>
-        <div class="title">oVPN.to Server Stats</div>
-        <div>Graphs: </div>
-        <paper-checkbox checked id="network">Network load (Mbit/s)</paper-checkbox>
-        <paper-checkbox id="cpu">CPU load</paper-checkbox>
-    </paper-toolbar>
+    <paper-header-panel>
+      <paper-toolbar>
+          <div class="title">oVPN.to Server Stats</div>
+          <div>Graphs: </div>
+          <paper-checkbox checked id="network">Network load (Mbit/s)</paper-checkbox>
+          <paper-checkbox id="cpu">CPU load</paper-checkbox>
+      </paper-toolbar>
+
     <div class="horizontal" id="main">
     </div>
+    <div class="layout horizontal" id="copyright"><p>&copy; bauerj 2016<br>Licensed under the Apache License, Version 2.0<br><a href="">Edit on Github</a></p></div>
+    </paper-header-panel>
+
   </template>
 
   <!-- build:js scripts/app.js -->

@@ -59,6 +59,7 @@ function toggleDataset(i, on) {
         main.appendChild(cc);
       });
       onScroll();
+      document.querySelector("#mainContainer").addEventListener("scroll", onScroll);
     })
   });
 
@@ -97,7 +98,6 @@ function toggleDataset(i, on) {
      }
    }
 
-   window.addEventListener("scroll", onScroll);
 
 
 
