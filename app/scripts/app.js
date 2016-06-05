@@ -35,6 +35,14 @@ function toggleDataset(i, on) {
 }
 
 
+function showBig(server) {
+  document.querySelector("#big-card").server = server;
+  document.querySelector("#big-card").loadChart();
+  document.querySelector("#big-card").style.display = "block";
+  document.querySelector("#main").style.display = "none";
+}
+
+
 (function(document) {
   'use strict';
 
@@ -83,7 +91,7 @@ function toggleDataset(i, on) {
       var remove = [];
      for (var i=0; i< cards.length; i++)  {
        var card = cards[i];
-       if (isInLoadableArea(card)) {
+       if (card.autoload && isInLoadableArea(card)) {
          remove.push(card.server);
          card.loadChart();
        }

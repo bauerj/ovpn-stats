@@ -21,7 +21,7 @@
         float: left;
         padding: 10px 0 0 10px;
       }
-      paper-card:hover {
+      paper-card {
         cursor: pointer;
       }
     </style>
@@ -48,8 +48,17 @@
             width: {
                 type: Number,
                 value: (window.innerWidth / 4) - 40
+            },
+            big:  {
+              type: Boolean,
+              value: false
+            },
+            autoload: {
+              type: Boolean,
+              value: true
             }
         },
+
         loadChart: function() {
           var chart = this.$.chart;
           var that = this;
@@ -77,6 +86,7 @@
                     }]
                 },
                 options: {
+                    animation: false,
                     legend: {
                       display: false
                     },
@@ -84,7 +94,7 @@
                         yAxes: [{
                             ticks: {
                                 beginAtZero: true,
-                                max: 500
+                                max: that.big ? undefined : 500
                             },
                             id: "n"
                         },
@@ -97,7 +107,12 @@
                         }],
                         xAxes: [{
                           type: "time",
-                          time: {tooltipFormat: "MMMM Do YYYY, HH:mm:ss"}
+                          time: {
+                            tooltipFormat: "MMMM Do YYYY, HH:mm:ss",
+                            unit: "day",
+                            min: data.labels[0],
+          	                max: data.labels[data.labels.length-1]
+                        }
                         }]
                     },
                     responsive: false,
@@ -113,13 +128,26 @@
           })
         },
         attached: function() {
-            var card = this.$["chart-card"];
-            card.addEventListener("mouseover", function(e) {
-                card.elevation = 4;
-            });
-            card.addEventListener("mouseout", function(e) {
-                card.elevation = 1;
-            });
+            if (this.big) {
+              this.width = window.innerWidth - 40;
+              this.$["chart"].width = this.width;
+              this.$["chart"].height = window.innerHeight - 250;
+              this.$["chart-card"].style.cursor = "default";
+            }
+            else {
+              var that = this;
+              var card = this.$["chart-card"];
+              card.addEventListener("click", function(e) {
+                showBig(that.server);
+              })
+              card.addEventListener("mouseover", function(e) {
+                  card.elevation = 4;
+              });
+              card.addEventListener("mouseout", function(e) {
+                  card.elevation = 1;
+              });
+            }
+
         }
     });
 
