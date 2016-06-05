@@ -13,7 +13,7 @@
         font-size: 175%;
       }
       #chart-card {
-        min-width: 20%;
+        min-width: 350px;
         min-height: 250px;
         margin: 10px;
       }
@@ -47,7 +47,7 @@
             },
             width: {
                 type: Number,
-                value: (window.innerWidth / 4) - 40
+                value: Math.max(350, window.innerWidth / 4 - 40)
             },
             big:  {
               type: Boolean,

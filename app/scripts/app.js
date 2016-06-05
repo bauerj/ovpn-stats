@@ -39,7 +39,21 @@ function showBig(server) {
   document.querySelector("#big-card").server = server;
   document.querySelector("#big-card").loadChart();
   document.querySelector("#big-card").style.display = "block";
+  document.querySelector("#back").style.display = "block";
   document.querySelector("#main").style.display = "none";
+}
+
+function showSmall() {
+  var big = document.querySelector("#big-card");
+  big.style.display = "none";
+  document.querySelector("#back").style.display = "none";
+  document.querySelector("#main").style.display = "block";
+  big.parentNode.removeChild(big);
+  var n = document.createElement("chart-card");
+  n.big = true;
+  n.autoload = false;
+  n.id = "big-card";
+  document.querySelector("#big-card-container").appendChild(n);
 }
 
 

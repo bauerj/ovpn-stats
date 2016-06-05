@@ -70,12 +70,15 @@ Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
   <template is="dom-bind" id="app">
     <paper-header-panel>
       <paper-toolbar>
+          <paper-icon-button icon="icons:arrow-back" id="back" onclick="showSmall()"></paper-icon-button>
           <div class="title">oVPN.to Server Stats</div>
           <div>Graphs: </div>
           <paper-checkbox checked id="network">Network load (Mbit/s)</paper-checkbox>
           <paper-checkbox id="cpu">CPU load</paper-checkbox>
       </paper-toolbar>
-    <chart-card id="big-card" big autoload="false">
+    <div id="big-card-container">
+      <chart-card id="big-card" big autoload="false">
+    </div>
     </chart-card>
     <div class="horizontal" id="main">
     </div>
